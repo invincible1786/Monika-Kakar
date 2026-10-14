@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+/* Variants for progressive enhancement: js:*  and  no-js:* */
+@custom-variant js (html.js &);
+@custom-variant no-js (html:not(.js) &);
+
+@theme {
+  /* Colour */
+  --color-cream: #FAF6EE;
+  --color-paper: #FFFDF8;
+  --color-sand: #F0E8D8;
+  --color-line: #E2D8C6;
+  --color-ink: #16233A;
+  --color-navy: #1F3354;
+  --color-navy-soft: #35507E;
+  --color-muted: #4A5266;        /* body-secondary text, AA on cream and paper */
+  --color-brass: #8A5F1F;        /* accent text/borders, AA on cream */
+  --color-brass-soft: #F3E6CC;
+  --color-wa: #0F7A40;           /* WhatsApp action, white text passes AA */
+  --color-wa-dark: #0B5F31;
+  --color-danger: #A32020;
+
+  /* Subject accents (text on soft tint and white on accent both pass AA) */
+  --color-english: #34528F;     --color-english-soft: #E3E9F6;
+  --color-psychology: #7B3F6E;  --color-psychology-soft: #F3E4EF;
+  --color-polsci: #1F6B66;      --color-polsci-soft: #DDF0EE;
+  --color-sociology: #5E6B1F;   --color-sociology-soft: #EBEFD5;
+
+  /* Type */
+  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  --text-display: clamp(2.5rem, 1.6rem + 3.4vw, 4.25rem);
+  --text-display--line-height: 1.04;
+  --text-h2: clamp(1.95rem, 1.4rem + 1.8vw, 2.9rem);
+  --text-h2--line-height: 1.1;
+
+  /* Depth */
+  --shadow-soft: 0 1px 2px rgb(22 35 58 / .05), 0 10px 28px -12px rgb(22 35 58 / .14);
+  --shadow-lift: 0 2px 4px rgb(22 35 58 / .06), 0 22px 44px -16px rgb(22 35 58 / .26);
+
+  /* Motion */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+}
+
+@utility container-x {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    text-wrap: pretty;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+  h4 { font-family: var(--font-sans); font-weight: 600; letter-spacing: 0; }
+  :focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; border-radius: .375rem; }
+  ::selection { background: var(--color-brass-soft); }
+  [id] { scroll-margin-top: 5.5rem; }
+  .skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 100; background: var(--color-navy); color: var(--color-paper);
+    padding: .75rem 1.25rem; border-radius: 999px; transition: top .2s; }
+  .skip-link:focus { top: 1rem; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+}
+
+@layer components {
+  /* Buttons: 48px minimum touch target */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 3rem;
+    padding: .75rem 1.5rem; border-radius: 999px; font-weight: 600; font-size: .97rem; line-height: 1;
+    transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out), background-color .25s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary { background: var(--color-navy); color: var(--color-paper); box-shadow: var(--shadow-soft); }
+  .btn-primary:hover { background: var(--color-ink); box-shadow: var(--shadow-lift); }
+  .btn-wa { background: var(--color-wa); color: #fff; box-shadow: var(--shadow-soft); }
+  .btn-wa:hover { background: var(--color-wa-dark); box-shadow: var(--shadow-lift); }
+  .btn-ghost { border: 1px solid var(--color-line); background: rgb(255 253 248 / .6); color: var(--color-ink); }
+  .btn-ghost:hover { border-color: var(--color-navy-soft); }
+  .btn-light { background: var(--color-paper); color: var(--color-ink); }
+
+  .badge { display: inline-flex; align-items: center; gap: .4rem; border: 1px solid var(--color-line);
+    background: var(--color-paper); padding: .35rem .9rem; border-radius: 999px; font-size: .875rem; font-weight: 500; }
+
+  /* Surfaces */
+  .card { background: var(--color-paper); border: 1px solid rgb(226 216 198 / .6); border-radius: 1.25rem; box-shadow: var(--shadow-soft); }
+  .glass { background: rgb(255 253 248 / .72); border: 1px solid rgb(226 216 198 / .7);
+    backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); box-shadow: var(--shadow-soft); }
+  .glass-dark { background: rgb(255 255 255 / .08); border: 1px solid rgb(255 255 255 / .16);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass { background: var(--color-paper); }
+    .glass-dark { background: var(--color-navy-soft); }
+  }
+}
+
+/* ---------- Motion ---------- */
+
+/* 1. Hero entrance (CSS only). The H1 animates transform only, so LCP is never delayed by opacity. */
+@keyframes rise { from { opacity: 0; transform: translate3d(0, 14px, 0); } to { opacity: 1; transform: none; } }
+@keyframes rise-t { from { transform: translate3d(0, 14px, 0); } to { transform: none; } }
+.hero-in { animation: rise .8s var(--ease-out) both; animation-delay: var(--d, 0ms); }
+.hero-in-t { animation: rise-t .8s var(--ease-out) both; }
+
+/* 2. Scroll reveal (driven by reveal.js). Hidden only when JS is running. */
+.js :is([data-reveal], [data-reveal-group] > *) {
+  opacity: 0; transform: translate3d(0, 16px, 0);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js :is([data-reveal], [data-reveal-group] > *).is-visible { opacity: 1; transform: none; }
+[data-reveal-group] > :nth-child(2) { --reveal-delay: 80ms; }
+[data-reveal-group] > :nth-child(3) { --reveal-delay: 160ms; }
+[data-reveal-group] > :nth-child(4) { --reveal-delay: 240ms; }
+[data-reveal-group] > :nth-child(n+5) { --reveal-delay: 320ms; }
+.no-reveal :is([data-reveal], [data-reveal-group] > *) { opacity: 1 !important; transform: none !important; } /* failsafe if JS never loads */
+
+/* 3. Soft parallax on the hero portrait (native scroll-driven animation, no JS) */
+@keyframes drift { to { transform: translate3d(0, 24px, 0); } }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax { animation: drift linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
+  }
+}
+
+/* 4. Smooth page-to-page transitions (cross-document, Chromium/Safari; ignored elsewhere) */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .25s; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-in, .hero-in-t { animation: none; }
+  .js :is([data-reveal], [data-reveal-group] > *) { opacity: 1; transform: none; transition: none; }
+}

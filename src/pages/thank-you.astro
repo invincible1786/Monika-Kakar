@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+---
+<BaseLayout noindex title="Thank you | Monika Kakar" description="Your enquiry has been sent.">
+  <section class="py-24">
+    <div class="container-x max-w-2xl">
+      <span class="grid size-14 place-items-center rounded-full bg-polsci-soft text-polsci"><Icon name="check" size={28} /></span>
+      <h1 class="mt-6 text-display font-bold">Thank you</h1>
+      <p class="mt-4 text-lg text-muted">Monika will get in touch with you soon. If you would like a faster reply, feel free to call her directly.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={`tel:${site.phone}`} class="btn btn-primary" data-track="Call Click"><Icon name="phone" size={18} /> Call {site.phone}</a>
+        <a href="/" class="btn btn-ghost">Back to home</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

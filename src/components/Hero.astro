@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/monika-kakar.jpg';
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section class="relative overflow-hidden">
+  <div class="container-x grid items-center gap-12 pb-20 pt-8 md:pt-14 lg:grid-cols-[1.1fr_.9fr] lg:gap-16">
+    <div>
+      <ul class="hero-in flex flex-wrap gap-2" style="--d:0ms" aria-label="Credentials">
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> UGC NET qualified</li>
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> M.Ed.</li>
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> 15 years of teaching</li>
+      </ul>
+
+      <h1 class="hero-in-t mt-6 max-w-[20ch] text-display font-bold">
+        Class 11 &amp; 12 English, Psychology, Political Science and Sociology Tuition in Ludhiana
+      </h1>
+
+      <p class="hero-in mt-6 max-w-[58ch] text-lg text-muted" style="--d:140ms">
+        Monika Kakar is a UGC NET-qualified teacher with an M.Ed. and 15 years of teaching experience.
+        She teaches English, Psychology, Political Science and Sociology to Class 11-12 students
+        (CBSE, ICSE and IB) in Ludhiana and online.
+      </p>
+
+      <div class="hero-in mt-8 flex flex-wrap gap-3" style="--d:260ms">
+        <a href="/contact/" class="btn btn-primary" data-track="Enquiry Click">Book enquiry <Icon name="arrow" size={18} /></a>
+        <a href={`tel:${site.phone}`} class="btn btn-ghost" data-track="Call Click">
+          <Icon name="phone" size={18} /> Call {site.phone}
+        </a>
+      </div>
+    </div>
+
+    <figure class="relative mx-auto w-full max-w-sm lg:max-w-none">
+      <!-- offset hairline arch behind the photo -->
+      <div class="absolute -right-3 top-4 h-full w-full rounded-t-[999px] rounded-b-3xl border border-brass/50" aria-hidden="true"></div>
+      <div class="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-3xl bg-sand shadow-lift">
+        <div class="parallax h-[108%] w-full">
+          <Image src={portrait} alt="Monika Kakar, English and Psychology teacher in Ludhiana"
+            widths={[360, 480, 640, 800]} sizes="(min-width:1024px) 440px, 80vw"
+            loading="eager" fetchpriority="high" format="webp" class="h-full w-full object-cover" />
+        </div>
+      </div>
+      <figcaption class="glass hero-in absolute -left-2 bottom-8 rounded-2xl px-4 py-3 text-sm sm:-left-6" style="--d:420ms">
+        <span class="block font-semibold">M.Ed., Panjab University</span>
+        <span class="block text-muted">UGC NET/SLET, June 2011</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>

@@ -1,0 +1,81 @@
+---
+import { nav, site } from '../data/site';
+import Icon from './Icon.astro';
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<div data-header-sentinel class="pointer-events-none absolute inset-x-0 top-0 h-24" aria-hidden="true"></div>
+
+<header data-header class="sticky top-0 z-50 h-20" style="view-transition-name: site-header">
+  <div class="header-bar">
+    <div class="container-x flex h-full items-center justify-between gap-4">
+      <a href="/" class="leading-tight" aria-label="Monika Kakar, home">
+        <span class="block font-display text-[1.65rem] font-bold">Monika Kakar</span>
+        <span class="hidden text-[.8rem] text-muted sm:block">Class 11 and 12 tutor in Ludhiana</span>
+      </a>
+
+      <nav aria-label="Main" class="hidden items-center gap-1 md:flex no-js:flex">
+        {nav.map((l) => (
+          <a href={l.href} class="nav-link" aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>
+        ))}
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="/contact/" class="btn btn-primary hidden sm:inline-flex" data-track="Enquiry Click">Get in touch</a>
+        <button type="button" class="menu-btn md:hidden no-js:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-toggle>
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu" class="mobile-menu md:hidden no-js:hidden" data-menu inert>
+  <nav aria-label="Mobile" class="flex flex-col">
+    {nav.map((l, i) => (
+      <a href={l.href} class="menu-link" style={`--i:${i}`} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>
+    ))}
+  </nav>
+  <div class="menu-link mt-8 flex flex-col gap-3" style="--i:3">
+    <a href="/contact/" class="btn btn-primary" data-track="Enquiry Click">Get in touch</a>
+    <a href={`tel:${site.phone}`} class="btn btn-ghost" data-track="Call Click"><Icon name="phone" /> Call {site.phone}</a>
+  </div>
+</div>
+
+<style is:global>
+  .header-bar { position: absolute; inset: 0 0 auto 0; height: 5rem; border-bottom: 1px solid transparent;
+    transition: height .35s var(--ease-out), background-color .35s, box-shadow .35s, border-color .35s, backdrop-filter .35s; }
+  [data-header][data-scrolled] .header-bar { height: 4rem; background: rgb(250 246 238 / .78);
+    -webkit-backdrop-filter: blur(14px) saturate(150%); backdrop-filter: blur(14px) saturate(150%);
+    box-shadow: 0 10px 28px -18px rgb(22 35 58 / .4); border-color: rgb(226 216 198 / .6); }
+  html.menu-open .header-bar { background: var(--color-cream); }
+
+  .nav-link { position: relative; padding: .5rem .9rem; border-radius: 999px; font-weight: 500; transition: background-color .2s; }
+  .nav-link:hover { background: var(--color-sand); }
+  .nav-link[aria-current="page"] { font-weight: 600; }
+  .nav-link[aria-current="page"]::after { content: ""; position: absolute; left: .9rem; right: .9rem; bottom: .15rem; height: 2px; background: var(--color-brass); border-radius: 2px; }
+
+  /* Menu button: three bars morph into an X */
+  .menu-btn { position: relative; width: 3rem; height: 3rem; border-radius: 999px; border: 1px solid var(--color-line); background: var(--color-paper); }
+  .menu-btn span { position: absolute; left: 50%; top: 50%; width: 1.15rem; height: 2px; margin-left: -.575rem; background: var(--color-ink); border-radius: 2px; transition: transform .35s var(--ease-out), opacity .2s; }
+  .menu-btn span:nth-child(1) { transform: translateY(-6px); }
+  .menu-btn span:nth-child(3) { transform: translateY(6px); }
+  .menu-btn[aria-expanded="true"] span:nth-child(1) { transform: rotate(45deg); }
+  .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: rotate(-45deg); }
+
+  /* Overlay: circular reveal from the button */
+  .mobile-menu { position: fixed; inset: 0; z-index: 40; overflow-y: auto; background: var(--color-cream); padding: 6.5rem 1.5rem 2.5rem;
+    clip-path: circle(0 at calc(100% - 2.75rem) 2.5rem); visibility: hidden;
+    transition: clip-path .6s var(--ease-out), visibility 0s .6s; }
+  .mobile-menu[data-open] { clip-path: circle(150% at calc(100% - 2.75rem) 2.5rem); visibility: visible; transition: clip-path .6s var(--ease-out), visibility 0s; }
+  .menu-link { opacity: 0; transform: translateY(14px); transition: opacity .45s var(--ease-out), transform .45s var(--ease-out); }
+  .mobile-menu[data-open] .menu-link { opacity: 1; transform: none; transition-delay: calc(var(--i) * 70ms + 180ms); }
+  .mobile-menu nav .menu-link { font-family: var(--font-display); font-size: 2.5rem; font-weight: 600; line-height: 1.2; padding: .6rem 0; border-bottom: 1px solid var(--color-line); }
+  .mobile-menu nav .menu-link[aria-current="page"] { color: var(--color-brass); }
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu, .mobile-menu[data-open] { transition: none; clip-path: none; }
+    .menu-link { transition: none; opacity: 1; transform: none; }
+    .mobile-menu:not([data-open]) { visibility: hidden; }
+  }
+</style>

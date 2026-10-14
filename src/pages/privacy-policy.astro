@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+<BaseLayout
+  title="Privacy Policy | Monika Kakar"
+  description="Privacy policy and data handling practices for monikakakar.com under the Digital Personal Data Protection Act (DPDP), 2023.">
+
+  <section class="py-16 md:py-24">
+    <div class="container-x max-w-3xl">
+      <h1 class="text-display font-bold">Privacy Policy</h1>
+      <p class="mt-4 text-sm text-muted">Last updated: October 2026</p>
+
+      <div class="mt-8 space-y-8 text-ink">
+        <section class="card p-6 sm:p-8">
+          <h2 class="text-2xl font-bold">1. What we collect</h2>
+          <p class="mt-3 text-muted">
+            When you submit an enquiry through our contact form, we collect the details you provide voluntarily:
+          </p>
+          <ul class="mt-2 list-disc space-y-1 pl-5 text-muted">
+            <li>Your name</li>
+            <li>Your telephone number</li>
+            <li>Optional email address</li>
+            <li>Class (Class 11 or Class 12)</li>
+            <li>Subject selections (English, Psychology, Political Science, Sociology)</li>
+            <li>Educational board (CBSE, ICSE, IB)</li>
+            <li>Preferred mode (Offline in Ludhiana or Online)</li>
+            <li>Optional message text</li>
+          </ul>
+        </section>
+
+        <section class="card p-6 sm:p-8">
+          <h2 class="text-2xl font-bold">2. Why we collect your information</h2>
+          <p class="mt-3 text-muted">
+            Information collected through the website is used exclusively to evaluate student requirements and reply directly to your tuition enquiry via phone call or email. We do not use your information for unsolicited marketing or newsletter lists.
+          </p>
+        </section>
+
+        <section class="card p-6 sm:p-8">
+          <h2 class="text-2xl font-bold">3. Third-party processors</h2>
+          <p class="mt-3 text-muted">
+            To provide a secure and reliable experience, certain third-party services assist in transmitting and protecting your enquiries:
+          </p>
+          <ul class="mt-2 list-disc space-y-1 pl-5 text-muted">
+            <li><strong>Web3Forms:</strong> Secure form processing and transmission to Monika's verified mailbox.</li>
+            <li><strong>Cloudflare Turnstile:</strong> Privacy-preserving spam and automated bot prevention without tracking cookies.</li>
+            <li><strong>Plausible Analytics:</strong> Lightweight, privacy-focused website usage metrics that collect zero cookies and zero personally identifiable information.</li>
+            <li><strong>Hosting Infrastructure:</strong> Static file delivery with strict TLS encryption.</li>
+          </ul>
+        </section>
+
+        <section class="card p-6 sm:p-8">
+          <h2 class="text-2xl font-bold">4. Data retention</h2>
+          <p class="mt-3 text-muted">
+            Enquiry data is retained only as long as necessary to coordinate class scheduling and respond to student inquiries. If you do not proceed with enrollment, your contact details can be deleted promptly upon request.
+          </p>
+        </section>
+
+        <section class="card p-6 sm:p-8">
+          <h2 class="text-2xl font-bold">5. Your rights under DPDP Act, 2023</h2>
+          <p class="mt-3 text-muted">
+            Under India's Digital Personal Data Protection Act (DPDP), 2023, you have the right to access, correct, update, or request the deletion of your personal data at any time, as well as withdraw prior consent.
+          </p>
+        </section>
+
+        <section class="card p-6 sm:p-8">
+          <h2 class="text-2xl font-bold">6. Contact and grievances</h2>
+          <p class="mt-3 text-muted">
+            If you have questions regarding this privacy policy or wish to request data removal, please contact:
+          </p>
+          <p class="mt-3 font-medium">
+            Email: <a href={`mailto:${site.email}`} class="text-navy underline">{site.email}</a><br />
+            Phone: <a href={`tel:${site.phone}`} class="text-navy underline">{site.phone}</a><br />
+            Location: {site.city}
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

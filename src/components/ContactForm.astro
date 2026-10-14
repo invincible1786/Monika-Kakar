@@ -1,0 +1,108 @@
+---
+import { site } from '../data/site';
+
+const key = import.meta.env.PUBLIC_WEB3FORMS_KEY;
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
+
+const input = 'mt-1.5 w-full rounded-xl border border-line bg-paper px-4 py-3 text-base text-ink placeholder:text-muted transition focus:border-navy-soft focus:outline-none focus:ring-4 focus:ring-navy-soft/15 aria-[invalid=true]:border-danger aria-[invalid=true]:ring-danger/10';
+const pill = 'inline-flex min-h-11 cursor-pointer items-center rounded-full border border-line bg-paper px-4 py-2 text-sm font-medium transition hover:border-navy-soft peer-checked:border-navy peer-checked:bg-navy peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brass';
+const subjectOptions = [['subject_english', 'English'], ['subject_psychology', 'Psychology'], ['subject_political_science', 'Political Science'], ['subject_sociology', 'Sociology']];
+---
+<form data-contact-form data-phone={site.phone} action="https://api.web3forms.com/submit" method="POST" novalidate aria-labelledby="form-title"
+  class="card p-6 shadow-lift sm:p-9">
+  <h2 id="form-title" class="text-3xl font-bold">Send an enquiry</h2>
+  <p class="mt-2 text-muted">Monika will get in touch with you soon.</p>
+
+  <input type="hidden" name="access_key" value={key} />
+  <input type="hidden" name="subject" value="New tuition enquiry from monikakakar.com" />
+  <input type="hidden" name="from_name" value="Monika Kakar website" />
+  <input type="hidden" name="redirect" value={`${site.url}/thank-you/`} />
+  <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  <div class="mt-7 grid gap-5 sm:grid-cols-2">
+    <div data-field data-required="Enter your name">
+      <label for="f-name" class="font-medium">Name</label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="err-name" class={input} />
+      <p id="err-name" data-error hidden class="mt-1.5 text-sm text-danger"></p>
+    </div>
+
+    <div data-field data-required="Enter your phone number" data-invalid="Enter a 10-digit mobile number, for example 98765 43210">
+      <label for="f-phone" class="font-medium">Phone number</label>
+      <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required
+        pattern="^(\\+91\\s?)?[6-9][0-9\\s]{9,11}$" aria-describedby="err-phone" class={input} />
+      <p id="err-phone" data-error hidden class="mt-1.5 text-sm text-danger"></p>
+    </div>
+
+    <div data-field data-invalid="Enter a valid email address, or leave it empty" class="sm:col-span-2">
+      <label for="f-email" class="font-medium">Email <span class="font-normal text-muted">(optional)</span></label>
+      <input id="f-email" name="email" type="email" autocomplete="email" aria-describedby="err-email" class={input} />
+      <p id="err-email" data-error hidden class="mt-1.5 text-sm text-danger"></p>
+    </div>
+  </div>
+
+  <fieldset data-field data-required="Choose Class 11 or Class 12" class="mt-6">
+    <legend class="font-medium">Class</legend>
+    <div class="mt-2 flex flex-wrap gap-2">
+      {[['11', 'Class 11'], ['12', 'Class 12']].map(([v, l]) => (
+        <label class="relative"><input type="radio" name="class" value={v} required class="peer sr-only" aria-describedby="err-class" /><span class={pill}>{l}</span></label>
+      ))}
+    </div>
+    <p id="err-class" data-error hidden class="mt-1.5 text-sm text-danger"></p>
+  </fieldset>
+
+  <fieldset class="mt-6">
+    <legend class="font-medium">Subjects <span class="font-normal text-muted">(choose one or more)</span></legend>
+    <div class="mt-2 flex flex-wrap gap-2">
+      {subjectOptions.map(([n, l]) => (
+        <label class="relative"><input type="checkbox" name={n} value="Yes" class="peer sr-only" /><span class={pill}>{l}</span></label>
+      ))}
+    </div>
+  </fieldset>
+
+  <div class="mt-6 grid gap-6 sm:grid-cols-2">
+    <fieldset>
+      <legend class="font-medium">Board</legend>
+      <div class="mt-2 flex flex-wrap gap-2">
+        {['CBSE', 'ICSE', 'IB'].map((b) => <label class="relative"><input type="radio" name="board" value={b} class="peer sr-only" /><span class={pill}>{b}</span></label>)}
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend class="font-medium">Mode</legend>
+      <div class="mt-2 flex flex-wrap gap-2">
+        {[['Online', 'Online'], ['Offline', 'Offline in Ludhiana']].map(([v, l]) => <label class="relative"><input type="radio" name="mode" value={v} class="peer sr-only" /><span class={pill}>{l}</span></label>)}
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="mt-6">
+    <label for="f-message" class="font-medium">Message <span class="font-normal text-muted">(optional)</span></label>
+    <textarea id="f-message" name="message" rows="4" class={input}></textarea>
+  </div>
+
+  <div data-field data-required="Tick the box to agree before sending" class="mt-6">
+    <label class="flex cursor-pointer items-start gap-3 text-sm">
+      <input type="checkbox" name="consent" value="Yes" required aria-describedby="err-consent" class="mt-1 size-5 shrink-0 accent-navy" />
+      <span>I agree that Monika may use these details to reply to my enquiry. Read the <a href="/privacy-policy/" class="underline">privacy policy</a>.</span>
+    </label>
+    <p id="err-consent" data-error hidden class="mt-1.5 text-sm text-danger"></p>
+  </div>
+
+  {sitekey && <div class="cf-turnstile mt-6 min-h-[65px]" data-sitekey={sitekey} data-theme="light"></div>}
+
+  <p data-status role="status" aria-live="polite" class="mt-4 text-sm"></p>
+
+  <button type="submit" class="btn btn-primary mt-4 w-full sm:w-auto" data-submit data-track="Form Submit">
+    <span class="submit-label">Send enquiry</span>
+    <span class="submit-spinner" aria-hidden="true"></span>
+  </button>
+</form>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style is:global>
+  .submit-spinner { display: none; width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 2px solid rgb(255 253 248 / .35); border-top-color: var(--color-paper); animation: spin .7s linear infinite; }
+  [data-submit][aria-busy="true"] { opacity: .85; cursor: progress; pointer-events: none; }
+  [data-submit][aria-busy="true"] .submit-spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .submit-spinner { animation-duration: 2s; } }
+</style>
+<script>import '../scripts/form.js';</script>

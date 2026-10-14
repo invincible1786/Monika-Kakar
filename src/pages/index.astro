@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CredentialsStrip from '../components/CredentialsStrip.astro';
+import SubjectTabs from '../components/SubjectTabs.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { homeSchema } from '../data/schema';
+---
+<BaseLayout
+  title="Class 11 & 12 English, Psychology, Pol Sci Tuition in Ludhiana | Monika Kakar"
+  description="UGC NET-qualified teacher with M.Ed. and 15 years' experience. English, Psychology, Political Science and Sociology for CBSE, ICSE and IB, in Ludhiana and online."
+  schema={homeSchema}>
+
+  <Hero />
+  <CredentialsStrip />
+  <SubjectTabs />
+
+  <!-- Boards and modes -->
+  <section class="pb-20 md:pb-28" aria-labelledby="boards-title">
+    <div class="container-x grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 id="boards-title" class="text-h2 font-bold">Boards covered</h2>
+        <ul class="mt-6 flex flex-wrap gap-3">
+          {['CBSE', 'ICSE', 'IB'].map((b) => (
+            <li class="rounded-2xl border border-line bg-paper px-8 py-5 font-display text-3xl font-bold shadow-soft">{b}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-h2 font-bold">Offline and online</h2>
+        <ul class="mt-6 flex flex-wrap gap-3">
+          <li class="rounded-2xl border border-line bg-paper px-6 py-5 shadow-soft"><span class="font-display text-2xl font-bold">Offline</span><span class="block text-sm text-muted">in Ludhiana</span></li>
+          <li class="rounded-2xl border border-line bg-paper px-6 py-5 shadow-soft"><span class="font-display text-2xl font-bold">Online</span><span class="block text-sm text-muted">across India</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="bg-navy py-20 text-paper">
+    <div class="container-x flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+      <div>
+        <h2 class="max-w-[22ch] text-h2 font-bold">Ready to start? Send Monika a message.</h2>
+        <p class="mt-3 max-w-[48ch] text-paper/80">Tell her the class, subject and board. She will get in touch with you soon.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact/" class="btn btn-light" data-track="Enquiry Click">Get in touch <Icon name="arrow" size={18} /></a>
+        <a href={`tel:${site.phone}`} class="btn btn-ghost !border-paper/40 !bg-white/10 !text-paper hover:!bg-white/20" data-track="Call Click">
+          <Icon name="phone" size={18} /> Call {site.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

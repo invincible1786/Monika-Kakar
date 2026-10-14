@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/cormorant-garamond/700.css';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  schema?: object;
+}
+
+const { title, description, noindex = false, schema } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Adds .js for progressive enhancement. If reveal.js has not run after 3s, content is forced visible. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      setTimeout(function () { if (!window.__ready) document.documentElement.classList.add('no-reveal'); }, 3000);
+    </script>
+    <SEO title={title} description={description} noindex={noindex} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    <slot name="head" />
+    {import.meta.env.PROD && (
+      <>
+        <script is:inline defer data-domain="monikakakar.com" src="https://plausible.io/js/script.js"></script>
+        <script is:inline>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };</script>
+      </>
+    )}
+  </head>
+  <body class="relative">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main" tabindex="-1" class="outline-none"><slot /></main>
+    <Footer />
+    <script>
+      import '../scripts/ui.js';
+      import '../scripts/reveal.js';
+    </script>
+  </body>
+</html>

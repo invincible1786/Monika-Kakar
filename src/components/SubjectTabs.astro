@@ -1,0 +1,69 @@
+---
+import { subjects } from '../data/subjects';
+import Icon from './Icon.astro';
+const boards = ['CBSE', 'ICSE', 'IB'];
+---
+<section id="subjects" class="py-20 md:py-28" aria-labelledby="subjects-title">
+  <div class="container-x">
+    <h2 id="subjects-title" class="max-w-[24ch] text-h2 font-bold">Subjects for Class 11 and 12</h2>
+    <p class="mt-4 max-w-[60ch] text-muted">Pick a subject to see what each class covers and Monika's background in it.</p>
+
+    <div data-tabs class="mt-10">
+      <div role="tablist" aria-label="Subjects" class="tablist no-js:hidden">
+        {subjects.map((s, i) => (
+          <button type="button" role="tab" id={`tab-${s.slug}`} data-tab={s.slug} aria-controls={s.slug}
+            aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
+            style={`--accent:${s.accent};--soft:${s.soft}`} class="tab">{s.name}</button>
+        ))}
+      </div>
+
+      <div class="mt-6 grid gap-8">
+        {subjects.map((s, i) => (
+          <article id={s.slug} data-panel class:list={['panel', i === 0 && 'is-active']}
+            style={`--accent:${s.accent};--soft:${s.soft}`}>
+            <h3 class="text-3xl font-bold md:text-4xl">Class 11-12 {s.name} tuition in Ludhiana (CBSE, ICSE, IB)</h3>
+            <p class="mt-3 max-w-[64ch] text-muted">{s.intro}</p>
+
+            <div class="mt-6 grid gap-4 md:grid-cols-2">
+              {[['Class 11', s.class11], ['Class 12', s.class12]].map(([label, topics]) => (
+                <section class="rounded-2xl bg-[var(--soft)] p-5">
+                  <h4 class="text-lg" style="color:var(--accent)">{label}</h4>
+                  <ul class="mt-3 space-y-2">
+                    {(topics as string[]).map((t) => (
+                      <li class="flex gap-2.5"><Icon name="check" size={18} class="mt-1 shrink-0 text-[var(--accent)]" /><span>{t}</span></li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+
+            <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-5 text-sm">
+              <p><span class="font-semibold">Background:</span> <span class="text-muted">{s.background}</span></p>
+              <ul class="flex flex-wrap gap-2" aria-label="Boards">{boards.map((b) => <li class="badge">{b}</li>)}</ul>
+              <p class="text-muted">Offline in Ludhiana and online</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .tablist { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .25rem; scrollbar-width: none; }
+  .tablist::-webkit-scrollbar { display: none; }
+  .tab { flex: none; min-height: 3rem; padding: .6rem 1.25rem; border-radius: 999px; border: 1px solid var(--color-line);
+    background: var(--color-paper); font-weight: 600; transition: background-color .25s, color .25s, border-color .25s, transform .25s var(--ease-out); }
+  .tab:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* Ledger panel: colour-coded left bar carries the subject identity */
+  .panel { background: var(--color-paper); border: 1px solid rgb(226 216 198 / .6); border-left: 6px solid var(--accent);
+    border-radius: 1.25rem; padding: clamp(1.25rem, 3vw, 2.25rem); box-shadow: var(--shadow-soft); }
+  .js .panel:not(.is-active) { display: none; }
+  .panel.is-entering { animation: panel-in .45s var(--ease-out); }
+  @keyframes panel-in { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .panel.is-entering { animation: none; } .tab { transition: none; } }
+</style>
+
+<script>import '../scripts/tabs.js';</script>

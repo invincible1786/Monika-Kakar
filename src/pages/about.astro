@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Timeline from '../components/Timeline.astro';
+import Icon from '../components/Icon.astro';
+import portrait from '../assets/monika-kakar.jpg';
+import { site } from '../data/site';
+import { aboutSchema } from '../data/schema';
+
+const qualifications = [
+  { meta: '1999', title: 'B.A. (Psychology, Sociology, Functional English)', org: 'Panjab University' },
+  { meta: '2001', title: 'M.A. English', org: 'Panjab University' },
+  { meta: '2006', title: 'B.Ed. (Pedagogy of English, SST)', org: 'Guru Nanak Dev University' },
+  { meta: '2009', title: 'M.Ed. (Psychology, Philosophy, Guidance & Counselling)', org: 'Panjab University' },
+  { meta: 'June 2011', title: 'UGC NET/SLET', org: 'University Grants Commission' },
+  { meta: '2014', title: 'M.A. Sociology', org: 'Panjab University' },
+];
+
+const experience = [
+  { meta: '2 years', title: 'PGT Teacher, English and Social Science', org: 'Sacred Heart Convent, Sarabha Nagar, Ludhiana' },
+  { meta: '1 year 8 months', title: 'Assistant Professor / PGT', org: 'Partap College of Education, Ludhiana' },
+  { meta: '6 months', title: 'English Teacher (IX-XI)', org: 'MGM School' },
+  { meta: '6 months', title: 'English Teacher (V-VII)', org: 'Delhi Public School (leave vacancy)' },
+  { meta: '1 year', title: 'College Lecturer', org: 'Devi Jain Memorial College for Women' },
+  { meta: '9 years', title: 'Private tuition, Class 11 and 12', org: 'Ludhiana and online' },
+];
+---
+<BaseLayout
+  title="About Monika Kakar | UGC NET Qualified Teacher, M.Ed., Ludhiana"
+  description="Qualifications, experience and teaching background of Monika Kakar: M.A. English, M.A. Sociology, M.Ed., UGC NET."
+  schema={aboutSchema}>
+
+  <section class="pb-10 pt-8 md:pt-14">
+    <div class="container-x grid items-center gap-10 md:grid-cols-[.8fr_1.2fr] lg:gap-16">
+      <div class="mx-auto w-full max-w-xs md:max-w-none">
+        <div class="aspect-[4/5] overflow-hidden rounded-3xl bg-sand shadow-lift">
+          <Image src={portrait} alt="Monika Kakar, English and Psychology teacher in Ludhiana" widths={[320, 480, 640]}
+            sizes="(min-width:768px) 380px, 70vw" loading="eager" fetchpriority="high" format="webp" class="h-full w-full object-cover" />
+        </div>
+      </div>
+      <div>
+        <h1 class="hero-in-t text-display font-bold">About Monika Kakar</h1>
+        <p class="hero-in mt-5 max-w-[58ch] text-lg text-muted" style="--d:120ms">
+          Monika Kakar is a UGC NET-qualified teacher with an M.Ed. and 15 years of teaching experience across
+          school, college and private tuition. She teaches English, Psychology, Political Science and Sociology
+          to Class 11-12 students in Ludhiana and online.
+        </p>
+        <ul class="hero-in mt-6 flex flex-wrap gap-2" style="--d:220ms" aria-label="Credentials">
+          {['UGC NET qualified', 'M.Ed.', 'M.A. English', 'M.A. Sociology'].map((c) => <li class="badge"><Icon name="check" size={16} class="text-brass" />{c}</li>)}
+        </ul>
+        <div class="hero-in mt-8 flex flex-wrap gap-3" style="--d:320ms">
+          <a href="/contact/" class="btn btn-primary" data-track="Enquiry Click">Book enquiry</a>
+          <a href={`tel:${site.phone}`} class="btn btn-ghost" data-track="Call Click"><Icon name="phone" size={18} /> Call {site.phone}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Timeline id="qualifications" heading="Qualifications" intro="Degrees and eligibility in English, Sociology, Psychology and education." items={qualifications} />
+  <Timeline id="experience" heading="Teaching experience" intro="Schools, colleges and private tuition in Ludhiana." items={experience} />
+
+  <section class="pb-16 md:pb-24" aria-labelledby="papers-title">
+    <div class="container-x">
+      <h2 id="papers-title" class="text-h2 font-bold">Research and conference papers, 2016-17</h2>
+      <ul class="mt-6 list-disc space-y-2 pl-5 text-muted">
+        <li>Pedagogical Approaches in Senior Secondary Humanities Education, Regional Education Seminar, 2016</li>
+        <li>Guidance and Psychological Counselling for Higher Secondary Students, National Conference on Educational Psychology, 2017</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+const certs = [
+  { slug: 'ugc-net', label: 'UGC NET/SLET, June 2011' },
+  { slug: 'med', label: 'M.Ed., Panjab University, 2009' },
+  { slug: 'ma-sociology', label: 'M.A. Sociology, Panjab University, 2014' },
+  { slug: 'ma-english', label: 'M.A. English, Panjab University, 2001' },
+  { slug: 'bed', label: 'B.Ed., Guru Nanak Dev University, 2006' },
+];
+---
+<section class="py-14 md:py-20" aria-labelledby="certs-title">
+  <div class="container-x">
+    <h2 id="certs-title" class="text-h2 font-bold">Certificates</h2>
+    <p class="mt-3 text-muted">Select a certificate to view it larger.</p>
+    <ul class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5" data-reveal-group>
+      {certs.map((c) => (
+        <li>
+          <button type="button" class="group block w-full text-left" data-cert data-full={`/certificates/${c.slug}.webp`} data-label={c.label}>
+            <span class="block aspect-[4/3] overflow-hidden rounded-xl border border-line bg-sand shadow-soft transition duration-300 group-hover:-translate-y-1 group-hover:shadow-lift">
+              <img src={`/certificates/${c.slug}-thumb.webp`} alt={`Certificate: ${c.label}`} width="480" height="360" loading="lazy" decoding="async" class="h-full w-full object-cover" />
+            </span>
+            <span class="mt-2 block text-sm font-medium">{c.label}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+
+    <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+      <form method="dialog" class="flex items-center justify-between gap-4 px-5 py-3">
+        <p id="lightbox-title" class="font-semibold"></p>
+        <button class="btn btn-ghost !min-h-11 !px-4" aria-label="Close certificate">Close</button>
+      </form>
+      <img alt="" class="max-h-[75vh] w-full object-contain" />
+    </dialog>
+  </div>
+</section>
+
+<style is:global>
+  .lightbox { margin: auto; width: min(92vw, 56rem); border: 0; border-radius: 1.25rem; padding: 0; overflow: hidden;
+    background: var(--color-paper); box-shadow: var(--shadow-lift); }
+  .lightbox[open] { animation: pop .3s var(--ease-out); }
+  .lightbox::backdrop { background: rgb(22 35 58 / .62); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  @keyframes pop { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .lightbox[open] { animation: none; } }
+</style>
+<script>import '../scripts/lightbox.js';</script>

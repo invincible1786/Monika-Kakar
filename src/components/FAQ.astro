@@ -1,0 +1,36 @@
+---
+import { faqs } from '../data/faqs';
+import Icon from './Icon.astro';
+---
+<div class="divide-y divide-line rounded-2xl border border-line bg-paper shadow-soft" data-faq>
+  {faqs.map((f, i) => (
+    <div class="faq-item" data-open="false">
+      <h3 class="font-sans! text-base! font-semibold!">
+        <button type="button" id={`faq-q-${i}`} class="faq-q" aria-expanded="false" aria-controls={`faq-a-${i}`}>
+          <span>{f.q}</span>
+          <Icon name="chevron" class="faq-chevron shrink-0" />
+        </button>
+      </h3>
+      <div id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} class="faq-a">
+        <div class="faq-a-inner"><p class="px-5 pb-5 text-muted sm:px-6">{f.a}</p></div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style is:global>
+  .faq-q { display: flex; width: 100%; min-height: 3.5rem; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1rem 1.25rem; text-align: left; border-radius: 1rem; }
+  @media (min-width: 640px) { .faq-q { padding-inline: 1.5rem; } }
+  .faq-chevron { transition: transform .35s var(--ease-out); color: var(--color-brass); }
+  .faq-a { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .4s var(--ease-out); }
+  .faq-a-inner { overflow: hidden; min-height: 0; }
+  .js .faq-a { grid-template-rows: 0fr; }
+  .js .faq-a-inner { visibility: hidden; transition: visibility 0s .4s; }
+  .js .faq-item[data-open="true"] .faq-a { grid-template-rows: 1fr; }
+  .js .faq-item[data-open="true"] .faq-a-inner { visibility: visible; transition-delay: 0s; }
+  .faq-item[data-open="true"] .faq-chevron { transform: rotate(180deg); }
+  @media (prefers-reduced-motion: reduce) { .faq-a, .faq-chevron { transition: none; } }
+</style>
+
+<script>import '../scripts/faq.js';</script>

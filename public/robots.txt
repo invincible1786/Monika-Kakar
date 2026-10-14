@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://monikakakar.com/sitemap-index.xml
