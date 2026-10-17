@@ -3,36 +3,105 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import CredentialsStrip from '../components/CredentialsStrip.astro';
 import SubjectTabs from '../components/SubjectTabs.astro';
+import FAQ from '../components/FAQ.astro';
 import Icon from '../components/Icon.astro';
-import { site } from '../data/site';
-import { homeSchema } from '../data/schema';
+import { site, authoritativeLinks } from '../data/site';
+import { homeSchema, getFAQSchema } from '../data/schema';
+import { faqs } from '../data/faqs';
+
+const homeFaqs = faqs.slice(0, 5);
+const homeSchemaWithFaq = {
+  ...homeSchema,
+  '@graph': [...homeSchema['@graph'], getFAQSchema(homeFaqs)],
+};
 ---
 <BaseLayout
-  title="Class 11 & 12 English, Psychology, Pol Sci Tuition in Ludhiana | Monika Kakar"
-  description="UGC NET-qualified teacher with M.Ed. and 15 years' experience. English, Psychology, Political Science and Sociology for CBSE, ICSE and IB, in Ludhiana and online."
-  schema={homeSchema}>
+  title="English & Psychology Tuition Ludhiana | Monika Kakar"
+  description="UGC NET-qualified teacher with 15 years' experience. CBSE, ICSE & IB tuition for Class 11-12 in Ludhiana and online."
+  schema={homeSchemaWithFaq}>
 
   <Hero />
   <CredentialsStrip />
   <SubjectTabs />
 
   <!-- Boards and modes -->
-  <section class="pb-20 md:pb-28" aria-labelledby="boards-title">
+  <section class="pb-20 md:pb-28" aria-labelledby="curriculum-boards-title">
     <div class="container-x grid gap-10 lg:grid-cols-2">
       <div>
-        <h2 id="boards-title" class="text-h2 font-bold">Boards covered</h2>
+        <h2 id="curriculum-boards-title" class="text-h2 font-bold">Class 11 &amp; 12 Boards Covered</h2>
+        <p class="mt-2 text-muted">Specialised syllabus alignment, marking scheme analysis, and exam pattern coaching for major senior secondary education boards.</p>
         <ul class="mt-6 flex flex-wrap gap-3">
-          {['CBSE', 'ICSE', 'IB'].map((b) => (
-            <li class="rounded-2xl border border-line bg-paper px-8 py-5 font-display text-3xl font-bold shadow-soft">{b}</li>
+          {['CBSE', 'ICSE / ISC', 'IB DP'].map((b) => (
+            <li class="rounded-2xl border border-line bg-paper px-7 py-5 font-display text-2xl font-bold shadow-soft">{b}</li>
           ))}
         </ul>
+
+        <!-- Authoritative external resources (Task 2.4) -->
+        <div class="mt-8 rounded-2xl border border-line bg-paper/60 p-5">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-muted">Official Board &amp; Curriculum Resources</h3>
+          <ul class="mt-3 space-y-2 text-sm">
+            {authoritativeLinks.map((res) => (
+              <li>
+                <a href={res.url} target="_blank" rel="noopener" class="font-medium text-navy hover:underline inline-flex items-center gap-1.5">
+                  <span>{res.name}</span>
+                  <span class="rounded bg-sand px-1.5 py-0.5 text-xs text-ink/75">{res.tag}</span>
+                  <Icon name="arrow" size={13} class="-rotate-45 text-muted" />
+                </a>
+                <span class="block text-xs text-muted">{res.desc}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+
       <div>
-        <h2 class="text-h2 font-bold">Offline and online</h2>
-        <ul class="mt-6 flex flex-wrap gap-3">
-          <li class="rounded-2xl border border-line bg-paper px-6 py-5 shadow-soft"><span class="font-display text-2xl font-bold">Offline</span><span class="block text-sm text-muted">in Ludhiana</span></li>
-          <li class="rounded-2xl border border-line bg-paper px-6 py-5 shadow-soft"><span class="font-display text-2xl font-bold">Online</span><span class="block text-sm text-muted">across India</span></li>
-        </ul>
+        <h2 class="text-h2 font-bold">Modes of Learning: Offline &amp; Online</h2>
+        <p class="mt-2 text-muted">Flexible coaching environments tailored to student learning preferences and geographical locations.</p>
+        <div class="mt-6 space-y-4">
+          <div class="rounded-2xl border border-line bg-paper p-6 shadow-soft">
+            <div class="flex items-center justify-between">
+              <span class="font-display text-2xl font-bold">Offline Tuition Centre</span>
+              <span class="badge">In Ludhiana</span>
+            </div>
+            <p class="mt-2 text-sm text-muted">Personalised small batches in Ludhiana. Conveniently accessible for students residing across:</p>
+            <ul class="mt-3 flex flex-wrap gap-2 text-xs">
+              {site.localities.map((loc) => (
+                <li class="rounded-full bg-sand px-3 py-1 font-medium text-ink/80">{loc}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="rounded-2xl border border-line bg-paper p-6 shadow-soft">
+            <div class="flex items-center justify-between">
+              <span class="font-display text-2xl font-bold">Online Interactive Batches</span>
+              <span class="badge">Pan-India</span>
+            </div>
+            <p class="mt-2 text-sm text-muted">Live 1-on-1 and small group digital sessions for students across Delhi NCR, Mumbai, Bangalore, and overseas studying CBSE, ISC, or IB curriculums.</p>
+            <div class="mt-4">
+              <a href="/online-tuition/" class="inline-flex items-center gap-1 text-sm font-semibold text-brass hover:underline">
+                Explore Online Tuition Programme <Icon name="arrow" size={15} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Home FAQ block (Task 5.2) -->
+  <section class="pb-20 md:pb-28" aria-labelledby="home-faq-title">
+    <div class="container-x max-w-4xl">
+      <div class="text-center">
+        <h2 id="home-faq-title" class="text-h2 font-bold">Frequently Asked Questions</h2>
+        <p class="mt-3 text-muted">Common questions about curriculum, board coverage, demo sessions, and admissions.</p>
+      </div>
+
+      <div class="mt-8">
+        <FAQ items={homeFaqs} idPrefix="home-faq" />
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href="/faq/" class="btn btn-ghost">View All Frequently Asked Questions <Icon name="arrow" size={16} /></a>
       </div>
     </div>
   </section>
@@ -41,13 +110,16 @@ import { homeSchema } from '../data/schema';
   <section class="bg-navy py-20 text-paper">
     <div class="container-x flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
       <div>
-        <h2 class="max-w-[22ch] text-h2 font-bold">Ready to start? Send Monika a message.</h2>
-        <p class="mt-3 max-w-[48ch] text-paper/80">Tell her the class, subject and board. She will get in touch with you soon.</p>
+        <h2 class="max-w-[22ch] text-h2 font-bold">Ready to excel? Discuss your learning requirements.</h2>
+        <p class="mt-3 max-w-[48ch] text-paper/80">Connect directly with Monika Kakar to determine batch timings, course curriculum, and personalised study roadmaps.</p>
       </div>
       <div class="flex flex-wrap gap-3">
-        <a href="/contact/" class="btn btn-light" data-track="Enquiry Click">Get in touch <Icon name="arrow" size={18} /></a>
-        <a href={`tel:${site.phone}`} class="btn btn-ghost !border-paper/40 !bg-white/10 !text-paper hover:!bg-white/20" data-track="Call Click">
+        <a href="/contact/" class="btn btn-light" data-track="Enquiry Click">Send enquiry <Icon name="arrow" size={18} /></a>
+        <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost !border-paper/40 !bg-white/10 !text-paper hover:!bg-white/20" data-track="Call Click">
           <Icon name="phone" size={18} /> Call {site.phone}
+        </a>
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-wa" data-track="WhatsApp Click">
+          <Icon name="chat" size={18} /> WhatsApp
         </a>
       </div>
     </div>

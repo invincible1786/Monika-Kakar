@@ -1,28 +1,110 @@
 ---
-import { site, nav } from '../data/site';
+import { site, nav, subjectNav } from '../data/site';
+import Icon from './Icon.astro';
+
+const currentYear = new Date().getFullYear();
 ---
 <footer class="border-t border-navy-soft bg-navy text-paper">
-  <div class="container-x grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+  <div class="container-x grid gap-10 py-14 md:grid-cols-[1.3fr_1fr_1.1fr_1fr]">
+    <!-- Brand & NAP -->
     <div>
-      <p class="font-display text-3xl font-bold text-paper">Monika Kakar</p>
-      <p class="mt-3 max-w-[38ch] text-paper/75">UGC NET-qualified teacher with an M.Ed. Class 11 and 12 tuition in {site.city} and online.</p>
+      <p class="font-display text-3xl font-bold text-paper">{site.name}</p>
+      <p class="mt-2 text-sm font-medium text-paper/90">{site.brandName}</p>
+      <p class="mt-3 text-sm text-paper/75 leading-relaxed">
+        UGC NET-qualified educator with M.Ed. Specialised humanities tuition for Class 11 &amp; 12 across CBSE, ICSE, and IB boards.
+      </p>
+
+      <!-- NAP details as clean text -->
+      <div class="mt-4 space-y-1.5 text-xs text-paper/70">
+        <p><strong class="text-paper/90">Location:</strong> {site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</p>
+        <p><strong class="text-paper/90">Hours:</strong> {site.openingHours.display}</p>
+      </div>
+
+      <!-- Social links (Task 6.2) -->
+      <div class="mt-5 flex items-center gap-3">
+        <a href={site.socials.instagram} target="_blank" rel="noopener" aria-label="Monika Kakar on Instagram"
+          class="grid size-9 place-items-center rounded-full bg-white/10 text-paper transition hover:bg-white/20">
+          <Icon name="instagram" size={17} />
+        </a>
+        <a href={site.socials.linkedin} target="_blank" rel="noopener" aria-label="Monika Kakar on LinkedIn"
+          class="grid size-9 place-items-center rounded-full bg-white/10 text-paper transition hover:bg-white/20">
+          <Icon name="linkedin" size={17} />
+        </a>
+        <a href={site.socials.youtube} target="_blank" rel="noopener" aria-label="Monika Kakar on YouTube"
+          class="grid size-9 place-items-center rounded-full bg-white/10 text-paper transition hover:bg-white/20">
+          <Icon name="youtube" size={17} />
+        </a>
+        <a href={site.socials.facebook} target="_blank" rel="noopener" aria-label="Monika Kakar on Facebook"
+          class="grid size-9 place-items-center rounded-full bg-white/10 text-paper transition hover:bg-white/20">
+          <Icon name="facebook" size={17} />
+        </a>
+      </div>
     </div>
-    <nav aria-label="Footer">
-      <p class="font-semibold text-paper">Pages</p>
-      <ul class="mt-3 grid grid-cols-2 gap-x-6 gap-y-2.5 text-paper/80">
-        {nav.map((l) => <li><a class="transition hover:text-paper hover:underline" href={l.href}>{l.label}</a></li>)}
-        <li><a class="transition hover:text-paper hover:underline" href="/privacy-policy/">Privacy policy</a></li>
+
+    <!-- Subject clusters (Task 2.2 descriptive anchors) -->
+    <nav aria-label="Tuition Subjects">
+      <p class="font-semibold text-paper">Tuition Subjects</p>
+      <ul class="mt-3 space-y-2 text-sm text-paper/80">
+        {subjectNav.map((s) => (
+          <li>
+            <a class="transition hover:text-paper hover:underline" href={s.href} aria-label={s.label}>
+              {s.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
+
+    <!-- Quick navigation & Localities -->
     <div>
-      <p class="font-semibold text-paper">Contact</p>
-      <ul class="mt-3 space-y-2 text-paper/80">
-        <li><a class="transition hover:text-paper hover:underline" href={`tel:${site.phone}`} data-track="Call Click">{site.phone}</a></li>
-        <li><a class="transition hover:text-paper hover:underline" href={`mailto:${site.email}`} data-track="Email Click">{site.email}</a></li>
+      <nav aria-label="Pages Navigation">
+        <p class="font-semibold text-paper">Quick Links</p>
+        <ul class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-paper/80">
+          {nav.map((l) => (
+            <li><a class="transition hover:text-paper hover:underline" href={l.href}>{l.label}</a></li>
+          ))}
+          <li><a class="transition hover:text-paper hover:underline" href="/privacy-policy/">Privacy policy</a></li>
+        </ul>
+      </nav>
+
+      <div class="mt-6">
+        <p class="text-xs font-semibold uppercase tracking-wider text-paper/60">Ludhiana Areas Served</p>
+        <p class="mt-1.5 text-xs text-paper/70 leading-relaxed">
+          {site.localities.join(' • ')}
+        </p>
+      </div>
+    </div>
+
+    <!-- Direct contact -->
+    <div>
+      <p class="font-semibold text-paper">Get in Touch</p>
+      <ul class="mt-3 space-y-2.5 text-sm text-paper/80">
+        <li>
+          <a class="transition hover:text-paper hover:underline inline-flex items-center gap-2" href={`tel:${site.phoneRaw}`} data-track="Call Click">
+            <Icon name="phone" size={16} /> <span>{site.phone}</span>
+          </a>
+        </li>
+        <li>
+          <a class="transition hover:text-paper hover:underline inline-flex items-center gap-2" href={site.whatsapp} target="_blank" rel="noopener" data-track="WhatsApp Click">
+            <Icon name="chat" size={16} /> <span>WhatsApp Chat</span>
+          </a>
+        </li>
+        <li>
+          <a class="transition hover:text-paper hover:underline inline-flex items-center gap-2 break-all" href={`mailto:${site.email}`} data-track="Email Click">
+            <Icon name="mail" size={16} /> <span>{site.email}</span>
+          </a>
+        </li>
       </ul>
+      <div class="mt-5">
+        <a href="/contact/" class="btn btn-ghost !border-paper/40 !bg-white/10 !text-paper hover:!bg-white/20 !min-h-10 !px-4 text-xs font-semibold">
+          Enquiry Form <Icon name="arrow" size={14} />
+        </a>
+      </div>
     </div>
   </div>
-  <p class="container-x border-t border-white/10 py-5 text-center text-sm text-paper/70">
-    © {new Date().getFullYear()} Monika Kakar, {site.city}
-  </p>
+
+  <div class="container-x flex flex-col items-center justify-between gap-3 border-t border-white/10 py-5 text-xs text-paper/70 sm:flex-row">
+    <p>© {currentYear} Monika Kakar. All rights reserved.</p>
+    <p>Senior Secondary Humanities Coaching — Ludhiana &amp; Online Pan-India</p>
+  </div>
 </footer>

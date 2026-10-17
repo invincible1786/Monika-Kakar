@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { faqs } from '../data/faqs';
+import { getBreadcrumbSchema, getFAQSchema, business } from '../data/schema';
+
+const pageTitle = "Tuition FAQs | Class 11 & 12 | Monika Kakar Ludhiana";
+const pageDesc = "Frequently asked questions about Class 11-12 tuition in Ludhiana & online. Fees, demo class, timings & boards answered.";
+const pageUrl = `${site.url}/faq/`;
+
+const breadcrumbs = [
+  { name: 'Home', url: `${site.url}/` },
+  { name: 'Frequently Asked Questions', url: pageUrl }
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    business,
+    getBreadcrumbSchema(breadcrumbs),
+    getFAQSchema(faqs),
+  ]
+};
+---
+<BaseLayout title={pageTitle} description={pageDesc} schema={pageSchema}>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="container-x pt-6">
+    <ol class="flex items-center gap-2 text-xs text-muted">
+      <li><a href="/" class="hover:underline">Home</a></li>
+      <li><span class="text-line">/</span></li>
+      <li class="font-semibold text-ink" aria-current="page">FAQs</li>
+    </ol>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-16">
+    <div class="container-x max-w-4xl text-center">
+      <span class="badge text-brass bg-brass-soft font-semibold">Help &amp; Answers</span>
+      <h1 class="mt-4 text-display font-bold">Frequently Asked Questions</h1>
+      <p class="mt-4 text-xl text-muted max-w-2xl mx-auto leading-relaxed">
+        Everything you need to know about Class 11 &amp; 12 tuition with Monika Kakar — from batch structures and syllabus coverage to offline locations and online sessions.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main FAQ Accordion -->
+  <section class="pb-20 md:pb-28">
+    <div class="container-x max-w-3xl">
+      <FAQ items={faqs} idPrefix="all-faqs" />
+
+      <!-- Still have questions card -->
+      <div class="mt-14 card p-8 text-center bg-sand/40 border border-line">
+        <h2 class="text-2xl font-bold">Have a specific question not covered here?</h2>
+        <p class="mt-2 text-sm text-muted max-w-md mx-auto">
+          Monika is always happy to speak directly with parents and students to discuss particular academic requirements.
+        </p>
+
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <a href="/contact/" class="btn btn-primary" data-track="Enquiry Click">Send enquiry form</a>
+          <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost" data-track="Call Click">
+            <Icon name="phone" size={18} /> Call {site.phone}
+          </a>
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-wa" data-track="WhatsApp Click">
+            <Icon name="chat" size={18} /> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

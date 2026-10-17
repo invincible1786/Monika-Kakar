@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import Icon from '../components/Icon.astro';
+import { site, authoritativeLinks } from '../data/site';
+import { getBreadcrumbSchema, getCourseSchema, getFAQSchema, business, person } from '../data/schema';
+
+const pageTitle = "Class 11 & 12 English Tuition Ludhiana | Monika Kakar";
+const pageDesc = "Expert Class 11-12 English tuition in Ludhiana for CBSE, ICSE & IB. Literature analysis, writing skills & board exam preparation.";
+const pageUrl = `${site.url}/english-tuition-ludhiana/`;
+
+const englishFaqs = [
+  {
+    q: "Which English curricula are taught for Class 11 and 12?",
+    a: "Monika coaches students across CBSE English Core and Elective, ISC English (Paper 1 Language & Paper 2 Literature in English), and IB DP English A: Language & Literature."
+  },
+  {
+    q: "How do you help students improve English board exam scores?",
+    a: "Through systematic breakdown of chapter themes, character sketches, poetic devices, and value points required by board evaluators. Students practice timed mock writing tests with point-by-point rubric feedback."
+  },
+  {
+    q: "Do you teach creative and formal writing formats?",
+    a: "Yes. All formal formats are taught from basics: notices, invitations, formal/informal letters, reports, articles, debate speeches, job applications, and proposal writing with strict adherence to current CBSE and ISC marking guidelines."
+  },
+  {
+    q: "Where are offline English tuition batches held in Ludhiana?",
+    a: "Offline batches are conducted at the learning centre in Ludhiana, serving students from Model Town, Sarabha Nagar, BRS Nagar, Pakhowal Road, and Civil Lines. 1-on-1 private tuition and online sessions are also available."
+  }
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: `${site.url}/` },
+  { name: 'English Tuition Ludhiana', url: pageUrl }
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    business,
+    person,
+    getBreadcrumbSchema(breadcrumbs),
+    getFAQSchema(englishFaqs),
+    getCourseSchema({
+      name: 'Class 11 & 12 English Tuition (CBSE, ICSE, IB)',
+      description: 'Comprehensive English literature, grammar, reading comprehension, and advanced composition tuition for senior secondary students in Ludhiana and online.',
+      url: pageUrl,
+      courseCode: 'ENG-11-12'
+    })
+  ]
+};
+---
+<BaseLayout title={pageTitle} description={pageDesc} schema={pageSchema}>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="container-x pt-6">
+    <ol class="flex items-center gap-2 text-xs text-muted">
+      <li><a href="/" class="hover:underline">Home</a></li>
+      <li><span class="text-line">/</span></li>
+      <li class="font-semibold text-ink" aria-current="page">English Tuition Ludhiana</li>
+    </ol>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-16">
+    <div class="container-x max-w-4xl">
+      <ul class="flex flex-wrap gap-2" aria-label="Credentials">
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> M.A. English, Panjab University</li>
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> B.Ed. (Pedagogy of English)</li>
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> UGC NET Qualified</li>
+      </ul>
+
+      <h1 class="mt-6 text-display font-bold">
+        Class 11 &amp; 12 English Tuition in Ludhiana
+      </h1>
+
+      <p class="mt-6 text-xl text-muted leading-relaxed">
+        Comprehensive board preparation and literary mastery for CBSE, ICSE/ISC, and IB Diploma students. Taught by Monika Kakar, an educator with 15+ years of senior secondary English teaching experience.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/contact/" class="btn btn-primary" data-track="Enquiry Click">
+          Enquire for English batch <Icon name="arrow" size={18} />
+        </a>
+        <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost" data-track="Call Click">
+          <Icon name="phone" size={18} /> Call {site.phone}
+        </a>
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-wa" data-track="WhatsApp Click">
+          <Icon name="chat" size={18} /> WhatsApp
+        </a>
+      </div>
+
+      <p class="mt-4 text-xs text-muted">
+        Offline batches in Ludhiana (Model Town, Sarabha Nagar, BRS Nagar) &amp; Live 1-on-1 Online pan-India
+      </p>
+    </div>
+  </section>
+
+  <!-- Syllabus Coverage & Details -->
+  <section class="border-t border-line/60 bg-paper/50 py-16 md:py-24">
+    <div class="container-x max-w-5xl">
+      <div class="max-w-3xl">
+        <h2 class="text-h2 font-bold">Curriculum &amp; Exam Preparation Roadmap</h2>
+        <p class="mt-3 text-muted">
+          Scoring 95+ in Class 12 English requires more than casual reading. Board evaluators look for textual quotes, critical vocabulary, precise structural syntax, and structured analytical arguments.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-2">
+        <!-- Class 11 Card -->
+        <div class="card p-7 sm:p-8 border-l-4 !border-l-english">
+          <span class="badge text-english bg-english-soft font-semibold">Class 11 (Plus One)</span>
+          <h3 class="mt-4 text-2xl font-bold">Foundation &amp; Textual Mastery</h3>
+          <p class="mt-2 text-sm text-muted">Bridging the transition from secondary to senior secondary literature and advanced composition.</p>
+
+          <ul class="mt-6 space-y-3 text-sm text-ink/90">
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-english" /><span><strong>Reading Comprehension:</strong> Unseen passage analysis, inferential reasoning, and vocabulary in context.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-english" /><span><strong>Writing Skills:</strong> Note-making, summarising, notices, advertisements, posters, and speech drafting.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-english" /><span><strong>Grammar &amp; Syntax:</strong> Clauses, tenses, reordering, transformation of sentences, and voice correction.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-english" /><span><strong>Literature Texts:</strong> In-depth exploration of core prose and poetry, poetic devices, themes, and character motivations.</span></li>
+          </ul>
+        </div>
+
+        <!-- Class 12 Card -->
+        <div class="card p-7 sm:p-8 border-l-4 !border-l-navy">
+          <span class="badge text-navy bg-sand font-semibold">Class 12 (Board Year)</span>
+          <h3 class="mt-4 text-2xl font-bold">Board Precision &amp; 95+ Scoring Strategy</h3>
+          <p class="mt-2 text-sm text-muted">Intensive answer crafting, past paper drilling, and time-management strategies for final examinations.</p>
+
+          <ul class="mt-6 space-y-3 text-sm text-ink/90">
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-navy" /><span><strong>Core Literature Text Analysis:</strong> Complete line-by-line breakdown with recurring board question patterns.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-navy" /><span><strong>Advanced Composition:</strong> Official letters (application for job with biodata, letters to editor), articles, and debate writing.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-navy" /><span><strong>Rubric-Based Answer Evaluation:</strong> Learn how examiners award marks for content, organisation, and linguistic accuracy.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-navy" /><span><strong>Full Pre-Board Mock Exams:</strong> 3-hour timed simulations with personalised diagnostic reviews before the boards.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Board Differences Grid -->
+      <div class="mt-14">
+        <h3 class="text-2xl font-bold">Tailored Board Methodologies</h3>
+        <div class="mt-6 grid gap-6 sm:grid-cols-3">
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <h4 class="text-lg font-bold text-navy">CBSE English</h4>
+            <p class="mt-2 text-sm text-muted">Focus on NCERT Flamingo &amp; Vistas textbooks, value-based character answers, and official CBSE marking schemes.</p>
+          </div>
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <h4 class="text-lg font-bold text-navy">ICSE / ISC English</h4>
+            <p class="mt-2 text-sm text-muted">In-depth drama analysis (Shakespearean plays), poetic metres, and ISC Paper 1 functional grammar and proposal writing.</p>
+          </div>
+          <div class="rounded-2xl border border-line bg-paper p-6">
+            <h4 class="text-lg font-bold text-navy">IB DP English</h4>
+            <p class="mt-2 text-sm text-muted">Global issues exploration, Individual Oral (IO) preparation, critical literary commentary, and HL Essay structure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authoritative Links Context -->
+  <section class="py-14">
+    <div class="container-x max-w-5xl">
+      <div class="rounded-2xl border border-line bg-paper p-6 sm:p-8">
+        <h3 class="text-lg font-bold">Official English Syllabus &amp; Curriculum References</h3>
+        <p class="mt-1 text-sm text-muted">We strictly align all test series and lesson plans with official academic boards:</p>
+        <div class="mt-4 flex flex-wrap gap-4 text-sm">
+          {authoritativeLinks.map((link) => (
+            <a href={link.url} target="_blank" rel="noopener" class="font-medium text-navy hover:underline inline-flex items-center gap-1">
+              <span>{link.name}</span>
+              <Icon name="arrow" size={13} class="-rotate-45 text-muted" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs Section -->
+  <section class="py-14 bg-paper/40 border-t border-line/60" aria-labelledby="english-faq-heading">
+    <div class="container-x max-w-4xl">
+      <h2 id="english-faq-heading" class="text-h2 font-bold text-center">Frequently Asked Questions: English Tuition</h2>
+      <p class="mt-3 text-center text-muted">Everything you need to know about joining Monika Kakar's Class 11-12 English batches in Ludhiana.</p>
+      <div class="mt-8">
+        <FAQ items={englishFaqs} idPrefix="eng-faq" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Sibling Subject Cluster Navigation -->
+  <section class="py-16 border-t border-line/60">
+    <div class="container-x max-w-5xl">
+      <h3 class="text-xl font-bold">Explore Other Senior Secondary Subjects</h3>
+      <div class="mt-6 grid gap-4 sm:grid-cols-3">
+        <a href="/psychology-tuition-ludhiana/" class="card p-5 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="block text-xs font-semibold uppercase text-psychology">Specialised Tuition</span>
+          <span class="mt-1 block text-lg font-bold">Psychology Tuition Ludhiana &rarr;</span>
+          <span class="mt-2 block text-xs text-muted">Scientific research, clinical disorders, and board exam answer structuring.</span>
+        </a>
+        <a href="/political-science-tuition-ludhiana/" class="card p-5 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="block text-xs font-semibold uppercase text-polsci">Specialised Tuition</span>
+          <span class="mt-1 block text-lg font-bold">Political Science Tuition &rarr;</span>
+          <span class="mt-2 block text-xs text-muted">Indian Constitution, political philosophy, and international geopolitics.</span>
+        </a>
+        <a href="/sociology-tuition-ludhiana/" class="card p-5 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="block text-xs font-semibold uppercase text-sociology">Specialised Tuition</span>
+          <span class="mt-1 block text-lg font-bold">Sociology Tuition &rarr;</span>
+          <span class="mt-2 block text-xs text-muted">Indian social structures, stratification, caste dynamics, and subjective writing.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="bg-navy py-16 text-paper">
+    <div class="container-x max-w-4xl flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div>
+        <h2 class="text-3xl font-bold">Secure Your Spot in the English Batch</h2>
+        <p class="mt-2 text-paper/80">Personalised attention and individual answer evaluation for every student.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact/" class="btn btn-light" data-track="Enquiry Click">Book enquiry</a>
+        <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost !border-paper/40 !bg-white/10 !text-paper hover:!bg-white/20">Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

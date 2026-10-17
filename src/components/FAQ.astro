@@ -1,17 +1,24 @@
 ---
-import { faqs } from '../data/faqs';
+import { faqs, type FAQItem } from '../data/faqs';
 import Icon from './Icon.astro';
+
+interface Props {
+  items?: FAQItem[];
+  idPrefix?: string;
+}
+
+const { items = faqs, idPrefix = 'faq' } = Astro.props;
 ---
 <div class="divide-y divide-line rounded-2xl border border-line bg-paper shadow-soft" data-faq>
-  {faqs.map((f, i) => (
+  {items.map((f, i) => (
     <div class="faq-item" data-open="false">
       <h3 class="font-sans! text-base! font-semibold!">
-        <button type="button" id={`faq-q-${i}`} class="faq-q" aria-expanded="false" aria-controls={`faq-a-${i}`}>
+        <button type="button" id={`${idPrefix}-q-${i}`} class="faq-q" aria-expanded="false" aria-controls={`${idPrefix}-a-${i}`}>
           <span>{f.q}</span>
           <Icon name="chevron" class="faq-chevron shrink-0" />
         </button>
       </h3>
-      <div id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} class="faq-a">
+      <div id={`${idPrefix}-a-${i}`} role="region" aria-labelledby={`${idPrefix}-q-${i}`} class="faq-a">
         <div class="faq-a-inner"><p class="px-5 pb-5 text-muted sm:px-6">{f.a}</p></div>
       </div>
     </div>

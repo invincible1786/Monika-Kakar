@@ -4,8 +4,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Timeline from '../components/Timeline.astro';
 import Icon from '../components/Icon.astro';
 import portrait from '../assets/monika-kakar.jpeg';
-import { site } from '../data/site';
-import { aboutSchema } from '../data/schema';
+import { site, subjectNav } from '../data/site';
+import { aboutSchema, getBreadcrumbSchema } from '../data/schema';
 
 const qualifications = [
   { meta: '1999', title: 'B.A. (Psychology, Sociology, Functional English)', org: 'Panjab University' },
@@ -24,48 +24,105 @@ const experience = [
   { meta: '1 year', title: 'College Lecturer', org: 'Devi Jain Memorial College for Women' },
   { meta: '9 years', title: 'Private tuition, Class 11 and 12', org: 'Ludhiana and online' },
 ];
+
+const breadcrumbs = [
+  { name: 'Home', url: `${site.url}/` },
+  { name: 'About Monika Kakar', url: `${site.url}/about/` }
+];
+
+const enrichedSchema = {
+  ...aboutSchema,
+  '@graph': [
+    ...aboutSchema['@graph'],
+    getBreadcrumbSchema(breadcrumbs)
+  ]
+};
 ---
 <BaseLayout
-  title="About Monika Kakar | UGC NET Qualified Teacher, M.Ed., Ludhiana"
-  description="Qualifications, experience and teaching background of Monika Kakar: M.A. English, M.A. Sociology, M.Ed., UGC NET."
-  schema={aboutSchema}>
+  title="About Monika Kakar | UGC NET Teacher Ludhiana"
+  description="Teaching background and credentials of Monika Kakar: M.A. English, M.A. Sociology, M.Ed. & UGC NET educator in Ludhiana."
+  schema={enrichedSchema}>
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="container-x pt-6">
+    <ol class="flex items-center gap-2 text-xs text-muted">
+      <li><a href="/" class="hover:underline">Home</a></li>
+      <li><span class="text-line">/</span></li>
+      <li class="font-semibold text-ink" aria-current="page">About Monika Kakar</li>
+    </ol>
+  </nav>
 
   <section class="pb-10 pt-8 md:pt-14">
     <div class="container-x grid items-center gap-10 md:grid-cols-[.8fr_1.2fr] lg:gap-16">
       <div class="mx-auto w-full max-w-xs md:max-w-none">
         <div class="aspect-[4/5] overflow-hidden rounded-3xl bg-sand shadow-lift">
-          <Image src={portrait} alt="Monika Kakar, English and Psychology teacher in Ludhiana" widths={[320, 480, 640]}
+          <Image src={portrait} alt="Monika Kakar, UGC NET qualified teacher in Ludhiana" widths={[320, 480, 640]}
             sizes="(min-width:768px) 380px, 70vw" loading="eager" fetchpriority="high" format="webp" class="h-full w-full object-cover" />
         </div>
       </div>
       <div>
         <h1 class="hero-in-t text-display font-bold">About Monika Kakar</h1>
         <p class="hero-in mt-5 max-w-[58ch] text-lg text-muted" style="--d:120ms">
-          Monika Kakar is a UGC NET-qualified teacher with an M.Ed. and 15 years of teaching experience across
-          school, college and private tuition. She teaches English, Psychology, Political Science and Sociology
-          to Class 11-12 students in Ludhiana and online.
+          Monika Kakar is a UGC NET-qualified educator with an M.Ed. and 15 years of classroom and private coaching experience across schools, colleges, and senior secondary tuition. She mentors Class 11 and 12 students in English, Psychology, Political Science, and Sociology across CBSE, ICSE, and IB curriculums in Ludhiana and online.
         </p>
         <ul class="hero-in mt-6 flex flex-wrap gap-2" style="--d:220ms" aria-label="Credentials">
-          {['UGC NET qualified', 'M.Ed.', 'M.A. English', 'M.A. Sociology'].map((c) => <li class="badge"><Icon name="check" size={16} class="text-brass" />{c}</li>)}
+          {['UGC NET qualified', 'M.Ed. (Panjab Univ.)', 'M.A. English', 'M.A. Sociology', '15+ Years Experience'].map((c) => (
+            <li class="badge"><Icon name="check" size={16} class="text-brass" />{c}</li>
+          ))}
         </ul>
         <div class="hero-in mt-8 flex flex-wrap gap-3" style="--d:320ms">
           <a href="/contact/" class="btn btn-primary" data-track="Enquiry Click">Book enquiry</a>
-          <a href={`tel:${site.phone}`} class="btn btn-ghost" data-track="Call Click"><Icon name="phone" size={18} /> Call {site.phone}</a>
+          <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost" data-track="Call Click"><Icon name="phone" size={18} /> Call {site.phone}</a>
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-wa" data-track="WhatsApp Click"><Icon name="chat" size={18} /> WhatsApp</a>
         </div>
       </div>
     </div>
   </section>
 
-  <Timeline id="qualifications" heading="Qualifications" intro="Degrees and eligibility in English, Sociology, Psychology and education." items={qualifications} />
-  <Timeline id="experience" heading="Teaching experience" intro="Schools, colleges and private tuition in Ludhiana." items={experience} />
+  <!-- Teaching Philosophy & E-E-A-T Highlights -->
+  <section class="border-y border-line/60 bg-paper/50 py-16">
+    <div class="container-x max-w-4xl">
+      <h2 class="text-h2 font-bold text-center">Teaching Philosophy &amp; Student Impact</h2>
+      <div class="mt-8 grid gap-6 sm:grid-cols-3">
+        <div class="card p-6">
+          <h3 class="text-lg font-bold text-navy">Concept Before Rote</h3>
+          <p class="mt-2 text-sm text-muted">Humanities subjects are intellectual disciplines. Students learn to analyze root theories, enabling them to tackle unseen high-order board questions effortlessly.</p>
+        </div>
+        <div class="card p-6">
+          <h3 class="text-lg font-bold text-navy">Rubric-Based Writing</h3>
+          <p class="mt-2 text-sm text-muted">Knowing the content is half the battle. We train students on exact board marking rubrics — paragraphing, sub-headings, key terminology, and citations.</p>
+        </div>
+        <div class="card p-6">
+          <h3 class="text-lg font-bold text-navy">Continuous Mentorship</h3>
+          <p class="mt-2 text-sm text-muted">Personalised guidance allows regular 1-on-1 feedback, individual weakness diagnostics, and personalised pre-board revision plans.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Timeline id="qualifications" heading="Academic Qualifications" intro="Advanced university degrees and eligibility in English, Sociology, Psychology and Education." items={qualifications} />
+  <Timeline id="experience" heading="Teaching Experience" intro="Senior secondary schools, teacher training colleges and private tuition in Ludhiana." items={experience} />
 
   <section class="pb-16 md:pb-24" aria-labelledby="papers-title">
     <div class="container-x">
-      <h2 id="papers-title" class="text-h2 font-bold">Research and conference papers, 2016-17</h2>
+      <h2 id="papers-title" class="text-h2 font-bold">Research and Conference Papers</h2>
       <ul class="mt-6 list-disc space-y-2 pl-5 text-muted">
-        <li>Pedagogical Approaches in Senior Secondary Humanities Education, Regional Education Seminar, 2016</li>
-        <li>Guidance and Psychological Counselling for Higher Secondary Students, National Conference on Educational Psychology, 2017</li>
+        <li><strong>Pedagogical Approaches in Senior Secondary Humanities Education</strong>, Regional Education Seminar, 2016</li>
+        <li><strong>Guidance and Psychological Counselling for Higher Secondary Students</strong>, National Conference on Educational Psychology, 2017</li>
       </ul>
+
+      <!-- Subject Links -->
+      <div class="mt-12 rounded-2xl border border-line bg-paper p-6 sm:p-8">
+        <h3 class="text-lg font-bold">Subjects Mentored by Monika Kakar</h3>
+        <p class="mt-1 text-sm text-muted">Explore dedicated curriculum roadmaps and coaching structures:</p>
+        <div class="mt-4 flex flex-wrap gap-3">
+          {subjectNav.map((s) => (
+            <a href={s.href} class="btn btn-ghost !min-h-11 !px-4 text-xs font-semibold">
+              {s.label} &rarr;
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

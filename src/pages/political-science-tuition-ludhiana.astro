@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import Icon from '../components/Icon.astro';
+import { site, authoritativeLinks } from '../data/site';
+import { getBreadcrumbSchema, getCourseSchema, getFAQSchema, business, person } from '../data/schema';
+
+const pageTitle = "Political Science Tuition Ludhiana | Monika Kakar";
+const pageDesc = "Class 11-12 Political Science tuition in Ludhiana. Indian Constitution, global politics & board exam essay writing for CBSE & IB.";
+const pageUrl = `${site.url}/political-science-tuition-ludhiana/`;
+
+const polsciFaqs = [
+  {
+    q: "How do you prepare students for Class 12 Political Science board exams?",
+    a: "We systematically cover every chapter of both NCERT textbooks ('Contemporary World Politics' and 'Politics in India Since Independence'). Students practice cartoon analyses, map-based questions, factual timeline building, and structured 6-mark essay answers."
+  },
+  {
+    q: "Which boards are supported for Political Science?",
+    a: "Classes cater primarily to CBSE Class 11 and 12, as well as IB Diploma Global Politics and ISC Political Science students."
+  },
+  {
+    q: "How are subjective analytical essays evaluated?",
+    a: "Every week, students submit subjective essays and mock question answers. Feedback is provided using the official board marking scheme, highlighting introduction structure, analytical arguments, Constitutional article citations, and balanced conclusions."
+  },
+  {
+    q: "Where in Ludhiana are the Political Science batches held?",
+    a: "Classes are held in Ludhiana for students from Model Town, Sarabha Nagar, BRS Nagar, Pakhowal Road, and nearby areas, with live interactive online options for students pan-India."
+  }
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: `${site.url}/` },
+  { name: 'Political Science Tuition Ludhiana', url: pageUrl }
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    business,
+    person,
+    getBreadcrumbSchema(breadcrumbs),
+    getFAQSchema(polsciFaqs),
+    getCourseSchema({
+      name: 'Class 11 & 12 Political Science Tuition',
+      description: 'Senior secondary Political Science coaching covering the Indian Constitution, political philosophy, contemporary world politics, and board exam answer writing.',
+      url: pageUrl,
+      courseCode: 'POLSCI-11-12'
+    })
+  ]
+};
+---
+<BaseLayout title={pageTitle} description={pageDesc} schema={pageSchema}>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="container-x pt-6">
+    <ol class="flex items-center gap-2 text-xs text-muted">
+      <li><a href="/" class="hover:underline">Home</a></li>
+      <li><span class="text-line">/</span></li>
+      <li class="font-semibold text-ink" aria-current="page">Political Science Tuition Ludhiana</li>
+    </ol>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-16">
+    <div class="container-x max-w-4xl">
+      <ul class="flex flex-wrap gap-2" aria-label="Credentials">
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> Former PGT Social Sciences</li>
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> UGC NET Qualified</li>
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> 15 Years Teaching Experience</li>
+      </ul>
+
+      <h1 class="mt-6 text-display font-bold">
+        Political Science Tuition in Ludhiana
+      </h1>
+
+      <p class="mt-6 text-xl text-muted leading-relaxed">
+        Master Constitutional principles, political theory, and international relations for Class 11 &amp; 12. Taught by Monika Kakar with an analytical approach that turns complex geopolitical concepts into high-scoring board examination answers.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/contact/" class="btn btn-primary" data-track="Enquiry Click">
+          Enquire for Political Science <Icon name="arrow" size={18} />
+        </a>
+        <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost" data-track="Call Click">
+          <Icon name="phone" size={18} /> Call {site.phone}
+        </a>
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-wa" data-track="WhatsApp Click">
+          <Icon name="chat" size={18} /> WhatsApp
+        </a>
+      </div>
+
+      <p class="mt-4 text-xs text-muted">
+        In-person coaching in Ludhiana (Model Town, Sarabha Nagar, Pakhowal Road) &amp; Online Pan-India
+      </p>
+    </div>
+  </section>
+
+  <!-- Syllabus Breakdown -->
+  <section class="border-t border-line/60 bg-paper/50 py-16 md:py-24">
+    <div class="container-x max-w-5xl">
+      <div class="max-w-3xl">
+        <h2 class="text-h2 font-bold">Curriculum Structure &amp; Analytical Blueprint</h2>
+        <p class="mt-3 text-muted">
+          High scores in Political Science require memorising key dates and Constitutional Articles, but also presenting balanced geopolitical arguments with current affair examples.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-2">
+        <!-- Class 11 Card -->
+        <div class="card p-7 sm:p-8 border-l-4 !border-l-polsci">
+          <span class="badge text-polsci bg-polsci-soft font-semibold">Class 11 Curriculum</span>
+          <h3 class="mt-4 text-2xl font-bold">Constitution &amp; Political Philosophy</h3>
+          <p class="mt-2 text-sm text-muted">Foundational understanding of institutional mechanics, democratic rights, and political theory.</p>
+
+          <ul class="mt-6 space-y-3 text-sm text-ink/90">
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-polsci" /><span><strong>Indian Constitution at Work:</strong> Preamble, Fundamental Rights &amp; Duties, Directive Principles, and Constitutional amendments.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-polsci" /><span><strong>Institutions of Governance:</strong> Structure and balance of power between Parliament, Executive, and the Judiciary.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-polsci" /><span><strong>Federalism &amp; Local Governance:</strong> Centre-State relations, 73rd and 74th Amendments, and decentralisation.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-polsci" /><span><strong>Political Theory:</strong> Classical and modern debates on Liberty, Equality, Justice, Rights, Citizenship, and Secularism.</span></li>
+          </ul>
+        </div>
+
+        <!-- Class 12 Card -->
+        <div class="card p-7 sm:p-8 border-l-4 !border-l-navy">
+          <span class="badge text-navy bg-sand font-semibold">Class 12 Board Focus</span>
+          <h3 class="mt-4 text-2xl font-bold">World Politics &amp; Modern Indian Governance</h3>
+          <p class="mt-2 text-sm text-muted">Intensive training for high-order board evaluation, cartographic skills, and essay writing.</p>
+
+          <ul class="mt-6 space-y-3 text-sm text-ink/90">
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-navy" /><span><strong>Contemporary World Politics:</strong> Disintegration of the USSR, alternative power centres (EU, ASEAN, BRICS), and UN reforms.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-navy" /><span><strong>Security &amp; Globalisation:</strong> Traditional vs non-traditional security threats, global environmental agreements, and economic integration.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-navy" /><span><strong>Politics in India Since Independence:</strong> Partition challenges, linguistic reorganisation, planned development, and green revolution.</span></li>
+            <li class="flex gap-2.5"><Icon name="check" size={18} class="shrink-0 text-navy" /><span><strong>Democratic Crises &amp; Coalitions:</strong> The 1975 Emergency, regional identity movements, coalition eras, and contemporary shifts.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Pedagogy & Exam Strategy -->
+      <div class="mt-14 rounded-2xl border border-line bg-paper p-8">
+        <h3 class="text-2xl font-bold">Board Exam Scoring Mastery</h3>
+        <div class="mt-6 grid gap-6 sm:grid-cols-3">
+          <div>
+            <h4 class="font-bold text-navy">Cartoon &amp; Image Questions</h4>
+            <p class="mt-2 text-sm text-muted">Board exams frequently include editorial cartoons. Students learn to decipher symbolism, historical context, and political satire.</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-navy">Map-Based Question Practice</h4>
+            <p class="mt-2 text-sm text-muted">Dedicated mapping workshops for identifying states during integration, princely states, boundary commissions, and electoral outcomes.</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-navy">Structured 6-Mark Answers</h4>
+            <p class="mt-2 text-sm text-muted">Framing sub-headings, introducing Constitutional Articles, and offering balanced analytical arguments to secure full credit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authoritative Links Context -->
+  <section class="py-14">
+    <div class="container-x max-w-5xl">
+      <div class="rounded-2xl border border-line bg-paper p-6 sm:p-8">
+        <h3 class="text-lg font-bold">Senior Secondary Syllabus &amp; Blueprint References</h3>
+        <p class="mt-1 text-sm text-muted">All course materials and tests strictly conform to official curriculum guidelines:</p>
+        <div class="mt-4 flex flex-wrap gap-4 text-sm">
+          {authoritativeLinks.map((link) => (
+            <a href={link.url} target="_blank" rel="noopener" class="font-medium text-navy hover:underline inline-flex items-center gap-1">
+              <span>{link.name}</span>
+              <Icon name="arrow" size={13} class="-rotate-45 text-muted" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs Section -->
+  <section class="py-14 bg-paper/40 border-t border-line/60" aria-labelledby="polsci-faq-heading">
+    <div class="container-x max-w-4xl">
+      <h2 id="polsci-faq-heading" class="text-h2 font-bold text-center">Frequently Asked Questions: Political Science</h2>
+      <p class="mt-3 text-center text-muted">Answers regarding batches, essay evaluation, and syllabus coverage.</p>
+      <div class="mt-8">
+        <FAQ items={polsciFaqs} idPrefix="pol-faq" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Sibling Subject Cluster Navigation -->
+  <section class="py-16 border-t border-line/60">
+    <div class="container-x max-w-5xl">
+      <h3 class="text-xl font-bold">Explore Sibling Humanities Subjects</h3>
+      <div class="mt-6 grid gap-4 sm:grid-cols-3">
+        <a href="/english-tuition-ludhiana/" class="card p-5 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="block text-xs font-semibold uppercase text-english">Specialised Tuition</span>
+          <span class="mt-1 block text-lg font-bold">English Tuition Ludhiana &rarr;</span>
+          <span class="mt-2 block text-xs text-muted">CBSE, ISC &amp; IB English literature, comprehension, and analytical composition.</span>
+        </a>
+        <a href="/psychology-tuition-ludhiana/" class="card p-5 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="block text-xs font-semibold uppercase text-psychology">Specialised Tuition</span>
+          <span class="mt-1 block text-lg font-bold">Psychology Tuition Ludhiana &rarr;</span>
+          <span class="mt-2 block text-xs text-muted">Cognitive theories, developmental stages, psychological disorders, and clinical therapies.</span>
+        </a>
+        <a href="/sociology-tuition-ludhiana/" class="card p-5 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="block text-xs font-semibold uppercase text-sociology">Specialised Tuition</span>
+          <span class="mt-1 block text-lg font-bold">Sociology Tuition &rarr;</span>
+          <span class="mt-2 block text-xs text-muted">Social stratification, Indian demographic structures, and subjective answer formatting.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="bg-navy py-16 text-paper">
+    <div class="container-x max-w-4xl flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div>
+        <h2 class="text-3xl font-bold">Excel in Class 11 &amp; 12 Political Science</h2>
+        <p class="mt-2 text-paper/80">Connect directly with Monika Kakar to enroll in offline or online batches.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact/" class="btn btn-light" data-track="Enquiry Click">Book consultation</a>
+        <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost !border-paper/40 !bg-white/10 !text-paper hover:!bg-white/20">Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

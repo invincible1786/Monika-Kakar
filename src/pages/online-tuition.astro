@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import Icon from '../components/Icon.astro';
+import { site, authoritativeLinks } from '../data/site';
+import { getBreadcrumbSchema, getCourseSchema, getFAQSchema, business, person } from '../data/schema';
+
+const pageTitle = "Online Tuition Class 11 & 12 | Monika Kakar";
+const pageDesc = "Live interactive online tuition for Class 11 & 12 English, Psychology, Pol Sci & Sociology. CBSE, ISC & IB across India & abroad.";
+const pageUrl = `${site.url}/online-tuition/`;
+
+const onlineFaqs = [
+  {
+    q: "How are the online classes conducted?",
+    a: "Classes take place live via high-definition video conferencing (Google Meet or Zoom) using interactive digital whiteboards and stylus annotations. Every student actively participates in verbal discussions and real-time screen exercises."
+  },
+  {
+    q: "Are the online sessions pre-recorded videos or live?",
+    a: "All sessions are 100% live and interactive. Monika Kakar teaches in real time, questions each student, checks comprehension on the spot, and resolves doubts immediately."
+  },
+  {
+    q: "How are subjective tests and homework evaluated online?",
+    a: "Students write answers on paper under timed conditions, scan their answer sheets as PDFs, and submit them. Monika evaluates each submission with detailed digital annotations, highlighting rubric scores and specific improvement areas."
+  }
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: `${site.url}/` },
+  { name: 'Online Tuition', url: pageUrl }
+];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    business,
+    person,
+    getBreadcrumbSchema(breadcrumbs),
+    getFAQSchema(onlineFaqs),
+    getCourseSchema({
+      name: 'Class 11 & 12 Online Humanities Tuition (Pan-India)',
+      description: 'Live interactive online coaching in English, Psychology, Political Science, and Sociology for senior secondary CBSE, ISC, and IB students.',
+      url: pageUrl,
+      courseCode: 'ONLINE-HUM-11-12'
+    })
+  ]
+};
+---
+<BaseLayout title={pageTitle} description={pageDesc} schema={pageSchema}>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="container-x pt-6">
+    <ol class="flex items-center gap-2 text-xs text-muted">
+      <li><a href="/" class="hover:underline">Home</a></li>
+      <li><span class="text-line">/</span></li>
+      <li class="font-semibold text-ink" aria-current="page">Online Tuition</li>
+    </ol>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-12 md:py-16">
+    <div class="container-x max-w-4xl">
+      <ul class="flex flex-wrap gap-2" aria-label="Credentials">
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> 100% Live Interactive Classes</li>
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> 1-on-1 &amp; Small Batches</li>
+        <li class="badge"><Icon name="check" size={16} class="text-brass" /> Pan-India Live Online Sessions</li>
+      </ul>
+
+      <h1 class="mt-6 text-display font-bold">
+        Live Online Tuition for Class 11 &amp; 12
+      </h1>
+
+      <p class="mt-6 text-xl text-muted leading-relaxed">
+        Personalised senior secondary humanities coaching across India. Master English, Psychology, Political Science, and Sociology for CBSE, ISC, and IB boards with UGC NET-qualified educator Monika Kakar.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/contact/" class="btn btn-primary" data-track="Enquiry Click">
+          Book online demo / consultation <Icon name="arrow" size={18} />
+        </a>
+        <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost" data-track="Call Click">
+          <Icon name="phone" size={18} /> Call {site.phone}
+        </a>
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-wa" data-track="WhatsApp Click">
+          <Icon name="chat" size={18} /> WhatsApp
+        </a>
+      </div>
+
+      <p class="mt-4 text-xs text-muted">
+        Teaching students across Delhi NCR, Mumbai, Bengaluru, Chandigarh, Ludhiana, and other cities across India
+      </p>
+    </div>
+  </section>
+
+  <!-- Online Experience Grid -->
+  <section class="border-t border-line/60 bg-paper/50 py-16 md:py-24">
+    <div class="container-x max-w-5xl">
+      <div class="max-w-3xl">
+        <h2 class="text-h2 font-bold">How Our Online Tuition Delivers Offline Results</h2>
+        <p class="mt-3 text-muted">
+          We combine the attentiveness of personal tutoring with the convenience and modern tools of digital learning.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="card p-6">
+          <span class="grid size-12 place-items-center rounded-xl bg-english-soft text-english"><Icon name="chat" size={24} /></span>
+          <h3 class="mt-4 text-xl font-bold">Live Two-Way Discussion</h3>
+          <p class="mt-2 text-sm text-muted">No passive video lectures. Students interact face-to-face, discuss chapter interpretations, and participate in analytical dialogues.</p>
+        </div>
+
+        <div class="card p-6">
+          <span class="grid size-12 place-items-center rounded-xl bg-psychology-soft text-psychology"><Icon name="check" size={24} /></span>
+          <h3 class="mt-4 text-xl font-bold">Personalised PDF Markups</h3>
+          <p class="mt-2 text-sm text-muted">Handwritten test papers are digitally graded with margin notes showing exactly where marks were lost against board rubrics.</p>
+        </div>
+
+        <div class="card p-6">
+          <span class="grid size-12 place-items-center rounded-xl bg-polsci-soft text-polsci"><Icon name="pin" size={24} /></span>
+          <h3 class="mt-4 text-xl font-bold">Comprehensive Study Kits</h3>
+          <p class="mt-2 text-sm text-muted">High-yield chapter summaries, character arcs, chronological timelines, and past 10-year board questions provided in advance.</p>
+        </div>
+
+        <div class="card p-6">
+          <span class="grid size-12 place-items-center rounded-xl bg-sociology-soft text-sociology"><Icon name="phone" size={24} /></span>
+          <h3 class="mt-4 text-xl font-bold">Instant Doubt Support</h3>
+          <p class="mt-2 text-sm text-muted">Students can send queries via WhatsApp between sessions or request quick 1-on-1 breakout check-ins before school exams.</p>
+        </div>
+
+        <div class="card p-6">
+          <span class="grid size-12 place-items-center rounded-xl bg-sand text-ink"><Icon name="close" size={24} /></span>
+          <h3 class="mt-4 text-xl font-bold">Flexible Batch Timings</h3>
+          <p class="mt-2 text-sm text-muted">Morning and evening batch slots designed to accommodate busy school and study timetables.</p>
+        </div>
+
+        <div class="card p-6">
+          <span class="grid size-12 place-items-center rounded-xl bg-brass-soft text-brass"><Icon name="arrow" size={24} /></span>
+          <h3 class="mt-4 text-xl font-bold">Board Mock Test Series</h3>
+          <p class="mt-2 text-sm text-muted">Simulated 3-hour pre-board mock examinations conducted under webcam proctoring to build real exam stamina and timing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subjects Grid -->
+  <section class="py-16 md:py-20">
+    <div class="container-x max-w-5xl">
+      <h2 class="text-h2 font-bold">Online Subjects Offered</h2>
+      <p class="mt-2 text-muted">Select a subject to view detailed syllabus modules and board specifics:</p>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <a href="/english-tuition-ludhiana/" class="card p-6 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="badge text-english bg-english-soft font-semibold">Class 11 &amp; 12</span>
+          <h3 class="mt-3 text-xl font-bold">English Tuition</h3>
+          <p class="mt-2 text-xs text-muted">CBSE, ISC &amp; IB literature, critical commentary, and formal writing formats.</p>
+          <span class="mt-4 block text-xs font-semibold text-english">View syllabus &rarr;</span>
+        </a>
+
+        <a href="/psychology-tuition-ludhiana/" class="card p-6 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="badge text-psychology bg-psychology-soft font-semibold">Class 11 &amp; 12</span>
+          <h3 class="mt-3 text-xl font-bold">Psychology Tuition</h3>
+          <p class="mt-2 text-xs text-muted">Cognitive theories, developmental stages, disorders, and clinical case studies.</p>
+          <span class="mt-4 block text-xs font-semibold text-psychology">View syllabus &rarr;</span>
+        </a>
+
+        <a href="/political-science-tuition-ludhiana/" class="card p-6 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="badge text-polsci bg-polsci-soft font-semibold">Class 11 &amp; 12</span>
+          <h3 class="mt-3 text-xl font-bold">Political Science</h3>
+          <p class="mt-2 text-xs text-muted">Indian Constitution, political philosophy, and contemporary world politics.</p>
+          <span class="mt-4 block text-xs font-semibold text-polsci">View syllabus &rarr;</span>
+        </a>
+
+        <a href="/sociology-tuition-ludhiana/" class="card p-6 transition hover:-translate-y-1 hover:shadow-lift">
+          <span class="badge text-sociology bg-sociology-soft font-semibold">Class 11 &amp; 12</span>
+          <h3 class="mt-3 text-xl font-bold">Sociology Tuition</h3>
+          <p class="mt-2 text-xs text-muted">Social stratification, demographic patterns, and institutional transformation.</p>
+          <span class="mt-4 block text-xs font-semibold text-sociology">View syllabus &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authoritative Links Context -->
+  <section class="py-14 bg-paper/50 border-t border-line/60">
+    <div class="container-x max-w-5xl">
+      <div class="rounded-2xl border border-line bg-paper p-6 sm:p-8">
+        <h3 class="text-lg font-bold">Senior Secondary Examination Boards</h3>
+        <p class="mt-1 text-sm text-muted">We provide targeted online coaching for students affiliated with all national and international curricula:</p>
+        <div class="mt-4 flex flex-wrap gap-4 text-sm">
+          {authoritativeLinks.map((link) => (
+            <a href={link.url} target="_blank" rel="noopener" class="font-medium text-navy hover:underline inline-flex items-center gap-1">
+              <span>{link.name}</span>
+              <Icon name="arrow" size={13} class="-rotate-45 text-muted" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs Section -->
+  <section class="py-14 border-t border-line/60" aria-labelledby="online-faq-heading">
+    <div class="container-x max-w-4xl">
+      <h2 id="online-faq-heading" class="text-h2 font-bold text-center">Frequently Asked Questions: Online Tuition</h2>
+      <p class="mt-3 text-center text-muted">Answers regarding hardware requirements, class timings, and evaluation methods.</p>
+      <div class="mt-8">
+        <FAQ items={onlineFaqs} idPrefix="onl-faq" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="bg-navy py-16 text-paper">
+    <div class="container-x max-w-4xl flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div>
+        <h2 class="text-3xl font-bold">Start Your Online Mentorship Today</h2>
+        <p class="mt-2 text-paper/80">Connect with Monika Kakar to schedule your introductory discussion and demo class.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact/" class="btn btn-light" data-track="Enquiry Click">Book consultation</a>
+        <a href={`tel:${site.phoneRaw}`} class="btn btn-ghost !border-paper/40 !bg-white/10 !text-paper hover:!bg-white/20">Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
